@@ -1,0 +1,18 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "rootDir": ".",
+        "noEmit": true
+    },
+    "include": [
+        "./tests/**/*.ts",
+        "./tests/**/*.ts",
+        "./tests/**/*.js",
+        "./src/**/*.ts",
+        "./**/*.config.js",
+        "./**/*.script.js",
+        "./**/*.script.mjs",
+        "./bin/**/*.mjs",
+        "./bin/**/*.js"
+    ]
+}

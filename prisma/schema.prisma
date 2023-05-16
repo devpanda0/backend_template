@@ -1,0 +1,36 @@
+// This is your Prisma graphql file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+    output   = "./generated/client"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = "postgresql://postgres:<passwort>@localhost:5432/<database>?schema=public"
+}
+
+model User {
+    id          Int      @id @default(autoincrement())
+    username    String   @unique
+    email       String?  @unique
+    displayName String
+    password    String
+    lastLogin   DateTime @default(now())
+    role        String   @default("user")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    RefreshToken RefreshToken[]
+}
+
+model RefreshToken {
+    token String @id
+
+    userId Int
+
+    createdAt DateTime @default(now())
+    User      User     @relation(fields: [userId], references: [id])
+}

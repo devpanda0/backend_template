@@ -24,7 +24,6 @@ export class AuthService {
                 username: data.username,
                 displayName: data.username,
                 password: data.password,
-                usedInviteToken: data.inviteCode,
             },
         })
 
@@ -59,7 +58,7 @@ export class AuthService {
     }
     // eslint-disable-next-line @typescript-eslint/require-await
     async generateToken(user: User): Promise<string> {
-        return jwt.sign({ id: Number(user.id), username: user.username }, "pimmel", {
+        return jwt.sign({ id: Number(user.id), username: user.username }, "top-secret", {
             expiresIn: "90d",
         })
     }

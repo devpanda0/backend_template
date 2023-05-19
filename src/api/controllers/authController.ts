@@ -42,29 +42,11 @@ export default class AuthController {
 
     @Post("/register")
     async register(@Body() body: RegisterBody): Promise<any> {
-        const invite = await prisma.userInvite.findFirst({
-            where: {
-                token: body.inviteCode,
-            },
-        })
-        if (!invite) throw new HttpError(406, "Invalid invite code")
-
         if (!body.username || !body.password || !body.displayName || !body.email)
             throw new HttpError(406, "Invalid credentials")
 
         const register = await new AuthService().register(body)
         if (typeof register === "string") throw new HttpError(406, register)
-
-        await prisma.userInvite.update({
-            where: {
-                id: invite.id,
-            },
-            data: {
-                useable: false,
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                usedByUserId: register.data.id,
-            },
-        })
 
         return { success: true, data: register }
     }

@@ -7,7 +7,7 @@ export class AuthService {
     async validateToken(token: string): Promise<object> {
         return new Promise((resolve, _) => {
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises,@typescript-eslint/require-await,@typescript-eslint/no-unsafe-argument
-                jwt.verify(token, "pimmel", async (err: any, decoded: any) => {
+                jwt.verify(token, "top-secret", async (err: any, decoded: any) => {
                     if (err) {
                         console.log(err);
                     }
